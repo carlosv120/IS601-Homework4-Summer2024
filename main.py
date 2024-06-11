@@ -1,6 +1,7 @@
+
 import sys
-from calculator import Calculator
 from decimal import Decimal, InvalidOperation
+from calculator import Calculator
 
 def calculate_and_print(num1, num2, operation_name):
     operation_mappings = {
@@ -10,14 +11,14 @@ def calculate_and_print(num1, num2, operation_name):
         'division': Calculator.division
     }
 
-
     try:
         num1_decimal, num2_decimal = map(Decimal, [num1, num2])
 
-        result = operation_mappings.get(operation_name) 
+        operation_func = operation_mappings.get(operation_name)
 
-        if result:
-            print(f"The result of {num1} {operation_name} {num2} is equal to {result(num1_decimal, num2_decimal)}")
+        if operation_func:
+            result = operation_func(num1_decimal, num2_decimal)
+            print(f"The result of {num1} {operation_name} {num2} is equal to {result}")
         else:
             print(f"Unknown operation: {operation_name}")
 
@@ -32,7 +33,7 @@ def calculate_and_print(num1, num2, operation_name):
 
 def main():
     if len(sys.argv) != 4:
-        print("Usage: python calculator_main.py <number1> <number2> <operation>")
+        print("Usage: python main.py <number1> <number2> <operation>")
         sys.exit(1)
     
     _, num1, num2, operation = sys.argv
