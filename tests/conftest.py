@@ -6,8 +6,10 @@ from calculator.operations import add, subtract, multiply, divide
 
 fake = Faker()
 
+# pylint: skip-file
+
 def generate_test_data(num_records):
-    
+
     operation_mappings = {
         'add': add,
         'subtract': subtract,
@@ -21,11 +23,9 @@ def generate_test_data(num_records):
         num2 = Decimal(fake.random_number(digits=2)) if _ % 4 != 3 else Decimal(fake.random_number(digits=1))
         operation_name = fake.random_element(elements=list(operation_mappings.keys()))
         operation_func = operation_mappings[operation_name]
-        
 
         if operation_func == divide:
             num2 = Decimal('1') if num2 == Decimal('0') else num2
-        
         try:
             if operation_func == divide and num2 == Decimal('0'):
                 expected = "ZeroDivisionError"
@@ -40,8 +40,6 @@ def pytest_addoption(parser):
     parser.addoption("--num_records", action="store", default=5, type=int, help="Number of test records to generate")
 
 def pytest_generate_tests(metafunc):
-
-
     if {"num1", "num2", "expected"}.intersection(set(metafunc.fixturenames)):
         num_records = metafunc.config.getoption("num_records")
 

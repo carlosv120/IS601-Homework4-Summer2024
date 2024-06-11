@@ -2,28 +2,13 @@
 from decimal import Decimal
 import pytest
 from calculator.calculation import Calculation
-from calculator.operations import add, subtract, multiply, divide
+from calculator.operations import divide
 
 
-def test_operation_add():
+def test_operation(num1,num2,operation, expected):
     '''Testing the addition operation'''
-    calculation = Calculation(Decimal('10'), Decimal('5'), add)
-    assert calculation.perform() == Decimal('15'), "Addition failed"
-
-def test_operation_subtract():
-    '''Testing the subtraction operation'''
-    calculation = Calculation(Decimal('10'), Decimal('5'), subtract)
-    assert calculation.perform() == Decimal('5'), "Subtraction failed"
-
-def test_operation_multiply():
-    '''Testing the multiplication operation'''
-    calculation = Calculation(Decimal('10'), Decimal('5'), multiply)
-    assert calculation.perform() == Decimal('50'), "Multiplication failed"
-
-def test_operation_divide():
-    '''Testing the division operation'''
-    calculation = Calculation(Decimal('10'), Decimal('5'), divide)
-    assert calculation.perform() == Decimal('2'), "Division failed"
+    calculation = Calculation.create(num1, num2, operation)
+    assert calculation.perform() == expected,f"{operation.__name__} Addition failed"
 
 def test_divide_by_zero():
     '''Testing the divide by zero'''
