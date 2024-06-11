@@ -17,7 +17,7 @@ def generate_test_data(num_records):
         'divide': divide
     }
 
-    # Generate test data
+
     for _ in range(num_records):
         num1 = Decimal(fake.random_number(digits=2))
         num2 = Decimal(fake.random_number(digits=2)) if _ % 4 != 3 else Decimal(fake.random_number(digits=1))
